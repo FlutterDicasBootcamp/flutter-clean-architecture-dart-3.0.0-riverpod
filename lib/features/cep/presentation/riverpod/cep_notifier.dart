@@ -27,28 +27,25 @@ final class CepNotifier extends StateNotifier<CepState> {
       final cepEither = await _cepRepository(CepBodyModel(cep));
 
       switch (cepEither) {
-        case Left():
+        case Left(value: final l):
           {
-            final noInternetError =
-                cepEither.value is GetCepInternetConnectionException;
+            final noInternetError = l is GetCepInternetConnectionException;
             if (noInternetError && context.mounted) {
-              context.showSnackBar(SnackBarType.error, cepEither.value.message);
+              context.showSnackBar(SnackBarType.error, l.message);
             }
             state = state.copyWith(
               isLoading: false,
               state: noInternetError ? CepStateEnum.loaded : CepStateEnum.error,
-              errorMessage: noInternetError ? null : cepEither.value.message,
-              cep: noInternetError
-                  ? (cepEither.value as GetCepInternetConnectionException).cep
-                  : null,
+              errorMessage: noInternetError ? null : l.message,
+              cep: noInternetError ? l.cep : null,
             );
           }
-        case Right():
+        case Right(value: final r):
           {
             state = state.copyWith(
               isLoading: false,
               state: CepStateEnum.loaded,
-              cep: cepEither.value,
+              cep: r,
             );
           }
       }

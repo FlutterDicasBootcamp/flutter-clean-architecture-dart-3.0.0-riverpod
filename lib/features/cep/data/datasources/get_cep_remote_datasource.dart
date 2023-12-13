@@ -22,13 +22,15 @@ class CepRemoteDatasourceImpl implements CepRemoteDatasource {
     final cepEither = await _api.get('/ws/${cepBody.cep}/json/');
 
     switch (cepEither) {
-      case Left():
-        return switch (cepEither.value.errorStatus) {
+      case Left(value: final l):
+        return switch (l.errorStatus) {
           ErrorStatus.noConnection => throw NoInternetException(),
-          _ => Left(GetCepRemoteException(message: cepEither.value.message)),
+          ErrorStatus.badRequest =>
+            Left(GetCepRemoteException(message: 'CEP inválido')),
+          _ => Left(GetCepRemoteException(message: l.message)),
         };
-      case Right():
-        return Right(CepResponseModel.fromMap(cepEither.value.data));
+      case Right(value: final r):
+        return Right(CepResponseModel.fromMap(r.data));
     }
   }
 }

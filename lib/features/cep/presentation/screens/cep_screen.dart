@@ -59,7 +59,9 @@ class CepScreen extends ConsumerWidget with CepTECMixin {
                 ),
                 const SizedBox(height: 32),
                 ElevatedButton(
-                  onPressed: () => notifier.loadAddress(cepTEC.text, context),
+                  onPressed: state.state == CepStateEnum.loading
+                      ? null
+                      : () => notifier.loadAddress(cepTEC.text, context),
                   child: Text(
                     'Procurar cep',
                     style: context.getTextTheme.bodyMedium,

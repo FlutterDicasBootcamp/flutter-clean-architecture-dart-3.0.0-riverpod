@@ -21,9 +21,8 @@ class CepLocalDatasourceImpl implements CepLocalDatasource {
 
     return switch (localCep) {
       Left() => Left(GetCepLocalException()),
-      Right() => Right(localCep.value != null
-          ? CepResponseModel.fromJSON(localCep.value!)
-          : null),
+      Right(value: final r) =>
+        Right(r != null ? CepResponseModel.fromJSON(r) : null),
     };
   }
 

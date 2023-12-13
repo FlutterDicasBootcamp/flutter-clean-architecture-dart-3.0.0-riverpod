@@ -20,18 +20,19 @@ class CepRepositoryImpl implements CepRepository {
       final cepEither = await _getCepRemote(cep);
 
       switch (cepEither) {
-        case Left():
-          return Left(cepEither.value);
-        case Right():
-          await _cepLocal.set(cepEither.value);
-          return Right(cepEither.value);
+        case Left(value: final l):
+          return Left(l);
+        case Right(value: final r):
+          await _cepLocal.set(r);
+          return Right(r);
       }
     } on NoInternetException {
       final localCep = await _cepLocal.get();
 
       return switch (localCep) {
-        Left() => Left(GetCepLocalException(message: localCep.value.message)),
-        Right() => Left(GetCepInternetConnectionException(cep: localCep.value)),
+        Left(value: final l) => Left(GetCepLocalException(message: l.message)),
+        Right(value: final r) =>
+          Left(GetCepInternetConnectionException(cep: r)),
       };
     }
   }

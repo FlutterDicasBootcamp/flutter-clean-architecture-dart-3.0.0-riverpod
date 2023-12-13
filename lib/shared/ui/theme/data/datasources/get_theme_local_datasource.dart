@@ -21,9 +21,9 @@ final class GetThemeLocalDatasourceImpl implements GetThemeLocalDatasource {
         {
           return true;
         }
-      case Right():
+      case Right(value: final r):
         {
-          return isLightTheme.value ?? true;
+          return r ?? true;
         }
     }
   }
