@@ -1,3 +1,5 @@
+import 'package:flutter_dicas_cep_clean_architecture/features/cep/domain/models/cep_response_model.dart';
+
 const Map<String, dynamic> tCepApiResponse = {
   "cep": "01001-000",
   "logradouro": "Praça da Sé",
@@ -11,7 +13,7 @@ const Map<String, dynamic> tCepApiResponse = {
   "siafi": "7107"
 };
 
-const String tCepCacheResponse = '''
+const String tCepLocalResponse = '''
   {
       "cep": "01001-000",
       "logradouro": "Praça da Sé",
@@ -25,3 +27,12 @@ const String tCepCacheResponse = '''
       "siafi": "7107"
     }
 ''';
+
+final tCepObject = CepResponseModel(
+  cep: 'cep',
+  logradouro: 'logradouro',
+  complemento: 'complemento',
+  bairro: 'bairro',
+  localidade: 'localidade',
+  uf: 'uf',
+);

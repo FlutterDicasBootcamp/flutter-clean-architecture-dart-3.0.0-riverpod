@@ -10,24 +10,41 @@ void main() {
   late LocalService sharedPreferencesService;
 
   setUpAll(() {
-    TestWidgetsFlutterBinding.ensureInitialized();
+    // TestWidgetsFlutterBinding.ensureInitialized();
 
-    SharedPreferences.setMockInitialValues({'cep': tCepCacheResponse});
+    SharedPreferences.setMockInitialValues({});
     sharedPreferencesService = SharedPreferencesService();
   });
 
-  group('Get Bool Local', () {
-    test('success', () async {
-      final response = await sharedPreferencesService.get<bool>('cep');
+  group('Set and get Bool Local', () {
+    test('returns null', () async {
+      final response = await sharedPreferencesService.get<bool>('bool');
 
-      expect(response, Right(false));
+      expect((response as Right).value, equals(null));
     });
 
-    // test('fail', () async {
+    test('return bool', () async {
+      await sharedPreferencesService.set<bool>('bool', false);
 
-    //   final response = await sharedPreferencesService.get<bool>('cep');
+      final response = await sharedPreferencesService.get<bool>('bool');
 
-    //   expect(response, isA<Left>());
-    // });
+      expect((response as Right).value, false);
+    });
+  });
+
+  group("Set and get String Local", () {
+    test('fail', () async {
+      final response = await sharedPreferencesService.get<String>('cep');
+
+      expect((response as Right).value, equals(null));
+    });
+
+    test('success', () async {
+      await sharedPreferencesService.set<String>('cep', tCepLocalResponse);
+
+      final response = await sharedPreferencesService.get<String>('cep');
+
+      expect((response as Right).value, tCepLocalResponse);
+    });
   });
 }
