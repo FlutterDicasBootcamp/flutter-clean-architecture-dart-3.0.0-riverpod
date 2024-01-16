@@ -1,6 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:flutter_dicas_cep_clean_architecture/shared/data/remote/api_service/dio_service.dart';
-import 'package:flutter_dicas_cep_clean_architecture/shared/data/remote/async/either.dart';
+import 'package:flutter_dicas_cep_clean_architecture/shared/data/async/either.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
 

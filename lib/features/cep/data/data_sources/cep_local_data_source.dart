@@ -1,7 +1,7 @@
 import 'package:flutter_dicas_cep_clean_architecture/features/cep/data/data_sources/errors/cep_remote_exception.dart';
 import 'package:flutter_dicas_cep_clean_architecture/features/cep/domain/models/cep_response_model.dart';
-import 'package:flutter_dicas_cep_clean_architecture/shared/data/remote/async/either.dart';
-import 'package:flutter_dicas_cep_clean_architecture/shared/data/remote/local_service/local_service.dart';
+import 'package:flutter_dicas_cep_clean_architecture/shared/data/async/either.dart';
+import 'package:flutter_dicas_cep_clean_architecture/shared/data/local/local_service/local_service.dart';
 
 abstract interface class CepLocalDataSource {
   Future<Either<CepLocalException, CepResponseModel?>> get();

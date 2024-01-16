@@ -4,7 +4,7 @@ import 'package:flutter_dicas_cep_clean_architecture/features/cep/data/data_sour
 import 'package:flutter_dicas_cep_clean_architecture/features/cep/domain/models/cep_body.dart';
 import 'package:flutter_dicas_cep_clean_architecture/features/cep/domain/models/cep_response_model.dart';
 import 'package:flutter_dicas_cep_clean_architecture/features/cep/domain/repositories/cep_repository.dart';
-import 'package:flutter_dicas_cep_clean_architecture/shared/data/remote/async/either.dart';
+import 'package:flutter_dicas_cep_clean_architecture/shared/data/async/either.dart';
 import 'package:flutter_dicas_cep_clean_architecture/shared/errors/no_internet_exception.dart';
 
 class CepRepositoryImpl implements CepRepository {

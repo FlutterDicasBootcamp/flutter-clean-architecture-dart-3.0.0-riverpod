@@ -5,7 +5,7 @@ import 'package:dio/dio.dart';
 import 'package:flutter_dicas_cep_clean_architecture/shared/const/const_strings.dart';
 import 'package:flutter_dicas_cep_clean_architecture/shared/data/remote/api_service/api_service.dart';
 import 'package:flutter_dicas_cep_clean_architecture/shared/data/remote/api_service/errors/api_exception.dart';
-import 'package:flutter_dicas_cep_clean_architecture/shared/data/remote/async/either.dart';
+import 'package:flutter_dicas_cep_clean_architecture/shared/data/async/either.dart';
 import 'package:flutter_dicas_cep_clean_architecture/shared/domain/models/remote/api_response_model.dart';
 
 final class DioService implements ApiService {

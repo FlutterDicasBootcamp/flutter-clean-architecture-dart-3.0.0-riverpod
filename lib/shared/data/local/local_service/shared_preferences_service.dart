@@ -1,8 +1,8 @@
 import 'dart:developer';
 
-import 'package:flutter_dicas_cep_clean_architecture/shared/data/remote/async/either.dart';
-import 'package:flutter_dicas_cep_clean_architecture/shared/data/remote/local_service/errors/local_exception.dart';
-import 'package:flutter_dicas_cep_clean_architecture/shared/data/remote/local_service/local_service.dart';
+import 'package:flutter_dicas_cep_clean_architecture/shared/data/async/either.dart';
+import 'package:flutter_dicas_cep_clean_architecture/shared/data/local/local_service/errors/local_exception.dart';
+import 'package:flutter_dicas_cep_clean_architecture/shared/data/local/local_service/local_service.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class SharedPreferencesService implements LocalService {

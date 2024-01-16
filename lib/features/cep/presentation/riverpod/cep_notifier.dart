@@ -3,7 +3,7 @@ import 'package:flutter_dicas_cep_clean_architecture/features/cep/data/data_sour
 import 'package:flutter_dicas_cep_clean_architecture/features/cep/domain/models/cep_body.dart';
 import 'package:flutter_dicas_cep_clean_architecture/features/cep/domain/repositories/cep_repository.dart';
 import 'package:flutter_dicas_cep_clean_architecture/features/cep/presentation/riverpod/cep_state.dart';
-import 'package:flutter_dicas_cep_clean_architecture/shared/data/remote/async/either.dart';
+import 'package:flutter_dicas_cep_clean_architecture/shared/data/async/either.dart';
 import 'package:flutter_dicas_cep_clean_architecture/shared/extensions/snack_bar_extension.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 

@@ -1,5 +1,5 @@
-import 'package:flutter_dicas_cep_clean_architecture/shared/data/remote/async/either.dart';
-import 'package:flutter_dicas_cep_clean_architecture/shared/data/remote/local_service/local_service.dart';
+import 'package:flutter_dicas_cep_clean_architecture/shared/data/async/either.dart';
+import 'package:flutter_dicas_cep_clean_architecture/shared/data/local/local_service/local_service.dart';
 import 'package:flutter_dicas_cep_clean_architecture/shared/ui/theme/data/errors/theme_local_exception.dart';
 
 abstract interface class SetThemeLocalDataSource {

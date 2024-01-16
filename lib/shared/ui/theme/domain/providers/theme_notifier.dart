@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_dicas_cep_clean_architecture/shared/data/remote/async/either.dart';
+import 'package:flutter_dicas_cep_clean_architecture/shared/data/async/either.dart';
 import 'package:flutter_dicas_cep_clean_architecture/shared/extensions/snack_bar_extension.dart';
 import 'package:flutter_dicas_cep_clean_architecture/shared/ui/theme/domain/providers/theme_state.dart';
 import 'package:flutter_dicas_cep_clean_architecture/shared/ui/theme/domain/repositories/theme_repository.dart';

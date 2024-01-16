@@ -4,7 +4,7 @@ import 'package:flutter_dicas_cep_clean_architecture/features/cep/data/data_sour
 import 'package:flutter_dicas_cep_clean_architecture/features/cep/data/repositories/cep_repository_impl.dart';
 import 'package:flutter_dicas_cep_clean_architecture/features/cep/domain/models/cep_response_model.dart';
 import 'package:flutter_dicas_cep_clean_architecture/features/cep/domain/repositories/cep_repository.dart';
-import 'package:flutter_dicas_cep_clean_architecture/shared/data/remote/async/either.dart';
+import 'package:flutter_dicas_cep_clean_architecture/shared/data/async/either.dart';
 import 'package:flutter_dicas_cep_clean_architecture/shared/errors/no_internet_exception.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
