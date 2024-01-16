@@ -8,11 +8,27 @@ import 'package:flutter_dicas_cep_clean_architecture/features/cep/presentation/w
 import 'package:flutter_dicas_cep_clean_architecture/shared/extensions/theme_extension.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class CepScreen extends ConsumerWidget with CepTECMixin {
-  CepScreen({super.key});
+const searchZipCodeKey = Key('search-zip-code-key');
+const zipCodeInput = Key('zip-code-input');
+
+class CepScreen extends ConsumerStatefulWidget {
+  const CepScreen({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  ConsumerState<CepScreen> createState() => _CepScreenState();
+}
+
+class _CepScreenState extends ConsumerState<CepScreen> with CepTECMixin {
+  final formKey = GlobalKey<FormState>();
+
+  void onSearchCep(CepNotifier notifier) {
+    if (formKey.currentState!.validate()) {
+      notifier.loadAddress(cepTEC.text, context);
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
     final state = ref.watch<CepState>(cepNotifierProvider);
     final notifier = ref.watch<CepNotifier>(cepNotifierProvider.notifier);
 
@@ -20,7 +36,7 @@ class CepScreen extends ConsumerWidget with CepTECMixin {
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 16.0),
         child: Form(
-          key: notifier.formKey,
+          key: formKey,
           child: Center(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -47,21 +63,21 @@ class CepScreen extends ConsumerWidget with CepTECMixin {
                 },
                 const SizedBox(height: 16),
                 TextFormField(
+                  key: zipCodeInput,
                   controller: cepTEC,
                   validator: (String? cep) {
                     if (cep == null || cep.isEmpty) {
                       return ValidationCepMessagesConst.notEmpty;
-                    } else if (int.tryParse(cep) == null) {
-                      return ValidationCepMessagesConst.notValid;
                     }
                     return null;
                   },
                 ),
                 const SizedBox(height: 32),
                 ElevatedButton(
+                  key: searchZipCodeKey,
                   onPressed: state.state == CepStateEnum.loading
                       ? null
-                      : () => notifier.loadAddress(cepTEC.text, context),
+                      : () => onSearchCep(notifier),
                   child: Text(
                     'Procurar cep',
                     style: context.getTextTheme.bodyMedium,

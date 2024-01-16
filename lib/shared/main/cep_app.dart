@@ -17,7 +17,7 @@ class CepApp extends StatelessWidget {
           theme: CepAppTheme.light,
           darkTheme: CepAppTheme.dark,
           themeMode: ref.watch(themeNotifierProvider).getTheme,
-          home: CepScreen(),
+          home: const CepScreen(),
         ),
       ),
     );

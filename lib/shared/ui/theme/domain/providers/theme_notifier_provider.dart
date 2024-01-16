@@ -8,10 +8,10 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 final themeNotifierProvider = StateNotifierProvider<ThemeNotifier, ThemeState>(
   (ref) => ThemeNotifier(ThemeRepositoryImpl(
-    SetThemeLocalDatasourceImpl(
+    SetThemeLocalDataSourceImpl(
       SharedPreferencesService(),
     ),
-    GetThemeLocalDatasourceImpl(
+    GetThemeLocalDataSourceImpl(
       SharedPreferencesService(),
     ),
   )),

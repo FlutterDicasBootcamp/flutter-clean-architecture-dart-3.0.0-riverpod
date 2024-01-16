@@ -1,6 +1,8 @@
 import 'dart:convert';
 
-final class CepResponseModel {
+import 'package:equatable/equatable.dart';
+
+final class CepResponseModel extends Equatable {
   final String cep;
   final String logradouro;
   final String complemento;
@@ -8,7 +10,7 @@ final class CepResponseModel {
   final String localidade;
   final String uf;
 
-  CepResponseModel({
+  const CepResponseModel({
     required this.cep,
     required this.logradouro,
     required this.complemento,
@@ -18,14 +20,6 @@ final class CepResponseModel {
   });
 
   factory CepResponseModel.fromMap(map) {
-    // final {
-    //   'cep ': cep,
-    //   'logradouro': logradouro,
-    //   'complemento': complemento,
-    //   'bairro': bairro,
-    //   'localidade': localidade,
-    //   'uf': uf,
-    // } = map;
     return CepResponseModel(
       cep: map['cep'],
       logradouro: map['logradouro'],
@@ -49,6 +43,6 @@ final class CepResponseModel {
       });
 
   @override
-  String toString() =>
-      'Cep: $cep, Logradouro: $logradouro, Complemento: $complemento, Bairro: $bairro, Localidade: $localidade and UF: $uf';
+  List<Object?> get props =>
+      [cep, logradouro, complemento, bairro, localidade, uf];
 }

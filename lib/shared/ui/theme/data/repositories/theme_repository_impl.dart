@@ -5,19 +5,19 @@ import 'package:flutter_dicas_cep_clean_architecture/shared/ui/theme/data/errors
 import 'package:flutter_dicas_cep_clean_architecture/shared/ui/theme/domain/repositories/theme_repository.dart';
 
 class ThemeRepositoryImpl implements ThemeRepository {
-  final SetThemeLocalDatasource _setThemeLocalDatasource;
-  final GetThemeLocalDatasource _getThemeLocalDatasource;
+  final SetThemeLocalDataSource _setThemeLocalDataSource;
+  final GetThemeLocalDataSource _getThemeLocalDataSource;
 
   ThemeRepositoryImpl(
-      this._setThemeLocalDatasource, this._getThemeLocalDatasource);
+      this._setThemeLocalDataSource, this._getThemeLocalDataSource);
 
   @override
   Future<bool> getIsLightTheme() {
-    return _getThemeLocalDatasource.getIsLightTheme();
+    return _getThemeLocalDataSource.getIsLightTheme();
   }
 
   @override
   Future<Either<ThemeLocalException, void>> setIsLightTheme(bool isLightTheme) {
-    return _setThemeLocalDatasource.setIsLightTheme(isLightTheme);
+    return _setThemeLocalDataSource.setIsLightTheme(isLightTheme);
   }
 }

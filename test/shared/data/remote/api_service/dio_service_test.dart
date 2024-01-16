@@ -10,7 +10,7 @@ void main() {
   late Dio mockApiService;
   late DioService dioService;
 
-  setUp(() {
+  setUpAll(() {
     mockApiService = MockDio();
     dioService = DioService(mockApiService);
   });
@@ -18,7 +18,7 @@ void main() {
   group('GET Request', () {
     test('success', () async {
       when(() => mockApiService.get(any())).thenAnswer(
-        (invocation) => Future.value(
+        (_) => Future.value(
           Response(data: {}, statusCode: 200, requestOptions: RequestOptions()),
         ),
       );
