@@ -33,6 +33,7 @@ class _CepScreenState extends ConsumerState<CepScreen> with CepTECMixin {
     final notifier = ref.watch<CepNotifier>(cepNotifierProvider.notifier);
 
     return CepScreenScaffold(
+      title: 'Cep App - Clean Architecture',
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 16.0),
         child: Form(
@@ -63,6 +64,7 @@ class _CepScreenState extends ConsumerState<CepScreen> with CepTECMixin {
                 },
                 const SizedBox(height: 16),
                 TextFormField(
+                  style: context.getTextTheme.bodyMedium,
                   key: zipCodeInput,
                   controller: cepTEC,
                   validator: (String? cep) {

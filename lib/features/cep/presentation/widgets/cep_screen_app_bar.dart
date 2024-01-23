@@ -5,9 +5,10 @@ import 'package:flutter_dicas_cep_clean_architecture/shared/ui/theme/domain/prov
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class CepScreenScaffold extends ConsumerStatefulWidget {
+  final String title;
   final Widget body;
 
-  const CepScreenScaffold({required this.body, super.key});
+  const CepScreenScaffold({required this.title, required this.body, super.key});
 
   @override
   ConsumerState<CepScreenScaffold> createState() => _CepScreenScaffoldState();
@@ -29,12 +30,12 @@ class _CepScreenScaffoldState extends ConsumerState<CepScreenScaffold> {
     return Scaffold(
       appBar: AppBar(
         actions: [
-          Switch(
-            value: themeState.getTheme == ThemeMode.light,
+          Switch.adaptive(
+            value: themeState.getTheme == ThemeMode.dark,
             onChanged: (_) => themeNotifier.changeTheme(context),
           )
         ],
-        title: const Text('Cep App - Clean Architecture'),
+        title: Text(widget.title),
       ),
       body: widget.body,
     );
