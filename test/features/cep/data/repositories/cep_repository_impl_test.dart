@@ -36,7 +36,7 @@ void main() {
           .thenAnswer((_) async => Right(tCepObject));
       when(() => mockCepLocal.set(any())).thenAnswer((_) async => Right(null));
 
-      final cepEither = await cepRepository.getCepDetails(tCepBodyRight);
+      final cepEither = await cepRepository.getCepDetailsByCep(tCepBodyRight);
 
       expect(cepEither, isA<Right>());
 
@@ -49,7 +49,7 @@ void main() {
       when(() => mockCepRemote.call(any())).thenThrow(NoInternetException());
       when(() => mockCepLocal.get()).thenAnswer((_) async => Right(tCepObject));
 
-      final cepEither = await cepRepository.getCepDetails(tCepBodyRight);
+      final cepEither = await cepRepository.getCepDetailsByCep(tCepBodyRight);
 
       expect(cepEither, isA<Left>());
       final bairro =
@@ -66,7 +66,7 @@ void main() {
       when(() => mockCepLocal.get()).thenAnswer(
           (_) async => Left(CepLocalException(message: kErrorMessage)));
 
-      final cepEither = await cepRepository.getCepDetails(tCepBodyRight);
+      final cepEither = await cepRepository.getCepDetailsByCep(tCepBodyRight);
 
       expect(cepEither, isA<Left>());
       final errorMessage =

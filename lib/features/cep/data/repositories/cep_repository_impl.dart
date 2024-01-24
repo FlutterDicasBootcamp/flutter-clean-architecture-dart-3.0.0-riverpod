@@ -14,7 +14,7 @@ class CepRepositoryImpl implements CepRepository {
   CepRepositoryImpl(this._cepLocal, this._getCepRemote);
 
   @override
-  Future<Either<CepException, CepResponseModel?>> getCepDetails(
+  Future<Either<CepException, CepResponseModel?>> getCepDetailsByCep(
       CepBody cep) async {
     try {
       final cepEither = await _getCepRemote(cep);

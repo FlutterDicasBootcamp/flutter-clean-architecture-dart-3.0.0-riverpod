@@ -4,12 +4,12 @@ import 'package:flutter_dicas_cep_clean_architecture/features/cep/domain/entitie
 import 'package:flutter_dicas_cep_clean_architecture/features/cep/domain/repositories/cep_repository.dart';
 import 'package:flutter_dicas_cep_clean_architecture/shared/data/async/either.dart';
 
-class GetCepDetails {
+class GetCepDetailsByCep {
   final CepRepository _cepRepo;
 
-  GetCepDetails(this._cepRepo);
+  GetCepDetailsByCep(this._cepRepo);
 
   Future<Either<CepException, CepResponseModel?>> call(CepBody cep) {
-    return _cepRepo.getCepDetails(cep);
+    return _cepRepo.getCepDetailsByCep(cep);
   }
 }

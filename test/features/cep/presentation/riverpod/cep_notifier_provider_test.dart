@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_dicas_cep_clean_architecture/features/cep/data/data_sources/errors/cep_remote_exception.dart';
 import 'package:flutter_dicas_cep_clean_architecture/features/cep/domain/entities/cep_body.dart';
-import 'package:flutter_dicas_cep_clean_architecture/features/cep/domain/use_cases/get_cep_details.dart';
+import 'package:flutter_dicas_cep_clean_architecture/features/cep/domain/use_cases/get_cep_details_by_cep.dart';
 import 'package:flutter_dicas_cep_clean_architecture/features/cep/presentation/riverpod/cep_notifier.dart';
 import 'package:flutter_dicas_cep_clean_architecture/features/cep/presentation/riverpod/cep_state.dart';
 import 'package:flutter_dicas_cep_clean_architecture/shared/data/async/either.dart';
@@ -12,12 +12,12 @@ import 'package:state_notifier_test/state_notifier_test.dart';
 
 import '../../../../fixtures/cep_response.dart';
 
-class MockGetCepDetails extends Mock implements GetCepDetails {}
+class MockGetCepDetailsByCep extends Mock implements GetCepDetailsByCep {}
 
 class MockBuildContext extends Mock implements BuildContext {}
 
 void main() {
-  late GetCepDetails getCepDetailsMock;
+  late GetCepDetailsByCep getCepDetailsByCepMock;
   late CepNotifier cepNotifier;
   late BuildContext buildContext;
 
@@ -27,8 +27,8 @@ void main() {
   });
 
   setUp(() {
-    getCepDetailsMock = MockGetCepDetails();
-    cepNotifier = CepNotifier(getCepDetailsMock);
+    getCepDetailsByCepMock = MockGetCepDetailsByCep();
+    cepNotifier = CepNotifier(getCepDetailsByCepMock);
     buildContext = MockBuildContext();
   });
 
@@ -45,7 +45,7 @@ void main() {
         build: () => cepNotifier,
         setUp: () {
           WidgetsFlutterBinding.ensureInitialized();
-          when(() => getCepDetailsMock(any()))
+          when(() => getCepDetailsByCepMock(any()))
               .thenAnswer((_) async => Right(tCepObject));
         },
         actions: (_) async {
@@ -64,7 +64,7 @@ void main() {
         build: () => cepNotifier,
         setUp: () {
           WidgetsFlutterBinding.ensureInitialized();
-          when(() => getCepDetailsMock(any()))
+          when(() => getCepDetailsByCepMock(any()))
               .thenAnswer((_) async => Left(CepException()));
           when(() => buildContext.mounted).thenReturn(true);
         },

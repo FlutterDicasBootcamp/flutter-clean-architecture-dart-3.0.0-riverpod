@@ -4,5 +4,6 @@ import 'package:flutter_dicas_cep_clean_architecture/features/cep/domain/entitie
 import 'package:flutter_dicas_cep_clean_architecture/shared/data/async/either.dart';
 
 abstract interface class CepRepository {
-  Future<Either<CepException, CepResponseModel?>> getCepDetails(CepBody cep);
+  Future<Either<CepException, CepResponseModel?>> getCepDetailsByCep(
+      CepBody cep);
 }
