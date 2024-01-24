@@ -1,15 +1,14 @@
 import 'package:flutter_dicas_cep_clean_architecture/features/cep/data/data_sources/const/get_cep_error_messages.dart';
 import 'package:flutter_dicas_cep_clean_architecture/features/cep/data/data_sources/errors/cep_remote_exception.dart';
-import 'package:flutter_dicas_cep_clean_architecture/features/cep/domain/models/cep_body.dart';
-import 'package:flutter_dicas_cep_clean_architecture/features/cep/domain/models/cep_response_model.dart';
+import 'package:flutter_dicas_cep_clean_architecture/features/cep/data/models/cep_response_model.dart';
+import 'package:flutter_dicas_cep_clean_architecture/features/cep/domain/entities/cep_body.dart';
 import 'package:flutter_dicas_cep_clean_architecture/shared/data/remote/api_service/api_service.dart';
 import 'package:flutter_dicas_cep_clean_architecture/shared/data/remote/api_service/errors/api_exception.dart';
 import 'package:flutter_dicas_cep_clean_architecture/shared/data/async/either.dart';
 import 'package:flutter_dicas_cep_clean_architecture/shared/errors/no_internet_exception.dart';
 
 abstract interface class GetCepRemoteDataSource {
-  Future<Either<CepRemoteException, CepResponseModel>> call(
-      CepBodyModel cepBody);
+  Future<Either<CepRemoteException, CepResponseModel>> call(CepBody cepBody);
 }
 
 class GetCepRemoteDataSourceImpl implements GetCepRemoteDataSource {
@@ -19,7 +18,7 @@ class GetCepRemoteDataSourceImpl implements GetCepRemoteDataSource {
 
   @override
   Future<Either<CepRemoteException, CepResponseModel>> call(
-      CepBodyModel cepBody) async {
+      CepBody cepBody) async {
     final cepEither = await _api.get('/ws/${cepBody.cep}/json/');
 
     switch (cepEither) {

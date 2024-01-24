@@ -32,6 +32,8 @@ class _CepScreenState extends ConsumerState<CepScreen> with CepTECMixin {
     final state = ref.watch<CepState>(cepNotifierProvider);
     final notifier = ref.watch<CepNotifier>(cepNotifierProvider.notifier);
 
+    final cepInputFN = FocusNode();
+
     return CepScreenScaffold(
       title: 'Cep App - Clean Architecture',
       body: Padding(
@@ -76,10 +78,15 @@ class _CepScreenState extends ConsumerState<CepScreen> with CepTECMixin {
                 ),
                 const SizedBox(height: 32),
                 ElevatedButton(
+                  focusNode: cepInputFN,
                   key: searchZipCodeKey,
-                  onPressed: state.state == CepStateEnum.loading
-                      ? null
-                      : () => onSearchCep(notifier),
+                  onPressed: () {
+                    if (state.state == CepStateEnum.loading) {
+                      return;
+                    }
+                    FocusScope.of(context).requestFocus(FocusNode());
+                    onSearchCep(notifier);
+                  },
                   child: Text(
                     'Procurar cep',
                     style: context.getTextTheme.bodyMedium,

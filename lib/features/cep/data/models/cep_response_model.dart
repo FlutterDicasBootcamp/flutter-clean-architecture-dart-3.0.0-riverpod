@@ -1,22 +1,14 @@
 import 'dart:convert';
+import 'package:flutter_dicas_cep_clean_architecture/features/cep/domain/entities/cep_response.dart';
 
-import 'package:equatable/equatable.dart';
-
-final class CepResponseModel extends Equatable {
-  final String cep;
-  final String logradouro;
-  final String complemento;
-  final String bairro;
-  final String localidade;
-  final String uf;
-
+final class CepResponseModel extends CepResponse {
   const CepResponseModel({
-    required this.cep,
-    required this.logradouro,
-    required this.complemento,
-    required this.bairro,
-    required this.localidade,
-    required this.uf,
+    required super.cep,
+    required super.logradouro,
+    required super.complemento,
+    required super.bairro,
+    required super.localidade,
+    required super.uf,
   });
 
   factory CepResponseModel.fromMap(map) {
@@ -41,8 +33,4 @@ final class CepResponseModel extends Equatable {
         'localidade': localidade,
         'uf': uf
       });
-
-  @override
-  List<Object?> get props =>
-      [cep, logradouro, complemento, bairro, localidade, uf];
 }

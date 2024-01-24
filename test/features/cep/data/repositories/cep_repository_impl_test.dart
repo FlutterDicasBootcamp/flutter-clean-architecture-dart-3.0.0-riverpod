@@ -2,7 +2,7 @@ import 'package:flutter_dicas_cep_clean_architecture/features/cep/data/data_sour
 import 'package:flutter_dicas_cep_clean_architecture/features/cep/data/data_sources/errors/cep_remote_exception.dart';
 import 'package:flutter_dicas_cep_clean_architecture/features/cep/data/data_sources/get_cep_remote_data_source.dart';
 import 'package:flutter_dicas_cep_clean_architecture/features/cep/data/repositories/cep_repository_impl.dart';
-import 'package:flutter_dicas_cep_clean_architecture/features/cep/domain/models/cep_response_model.dart';
+import 'package:flutter_dicas_cep_clean_architecture/features/cep/data/models/cep_response_model.dart';
 import 'package:flutter_dicas_cep_clean_architecture/features/cep/domain/repositories/cep_repository.dart';
 import 'package:flutter_dicas_cep_clean_architecture/shared/data/async/either.dart';
 import 'package:flutter_dicas_cep_clean_architecture/shared/errors/no_internet_exception.dart';
@@ -36,7 +36,7 @@ void main() {
           .thenAnswer((_) async => Right(tCepObject));
       when(() => mockCepLocal.set(any())).thenAnswer((_) async => Right(null));
 
-      final cepEither = await cepRepository(tCepBodyRight);
+      final cepEither = await cepRepository.getCepDetails(tCepBodyRight);
 
       expect(cepEither, isA<Right>());
 
@@ -49,7 +49,7 @@ void main() {
       when(() => mockCepRemote.call(any())).thenThrow(NoInternetException());
       when(() => mockCepLocal.get()).thenAnswer((_) async => Right(tCepObject));
 
-      final cepEither = await cepRepository(tCepBodyRight);
+      final cepEither = await cepRepository.getCepDetails(tCepBodyRight);
 
       expect(cepEither, isA<Left>());
       final bairro =
@@ -66,7 +66,7 @@ void main() {
       when(() => mockCepLocal.get()).thenAnswer(
           (_) async => Left(CepLocalException(message: kErrorMessage)));
 
-      final cepEither = await cepRepository(tCepBodyRight);
+      final cepEither = await cepRepository.getCepDetails(tCepBodyRight);
 
       expect(cepEither, isA<Left>());
       final errorMessage =

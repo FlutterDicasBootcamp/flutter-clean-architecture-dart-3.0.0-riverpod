@@ -1,4 +1,4 @@
-import 'package:flutter_dicas_cep_clean_architecture/features/cep/domain/models/cep_response_model.dart';
+import 'package:flutter_dicas_cep_clean_architecture/features/cep/data/models/cep_response_model.dart';
 import 'package:flutter_dicas_cep_clean_architecture/shared/errors/base_exception.dart';
 
 base class CepException extends BaseException {

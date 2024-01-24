@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_dicas_cep_clean_architecture/features/cep/data/data_sources/errors/cep_remote_exception.dart';
-import 'package:flutter_dicas_cep_clean_architecture/features/cep/domain/models/cep_body.dart';
-import 'package:flutter_dicas_cep_clean_architecture/features/cep/domain/repositories/cep_repository.dart';
+import 'package:flutter_dicas_cep_clean_architecture/features/cep/domain/entities/cep_body.dart';
+import 'package:flutter_dicas_cep_clean_architecture/features/cep/domain/use_cases/get_cep_details.dart';
 import 'package:flutter_dicas_cep_clean_architecture/features/cep/presentation/riverpod/cep_state.dart';
 import 'package:flutter_dicas_cep_clean_architecture/shared/data/async/either.dart';
 import 'package:flutter_dicas_cep_clean_architecture/shared/extensions/snack_bar_extension.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 final class CepNotifier extends StateNotifier<CepState> {
-  final CepRepository _cepRepository;
+  final GetCepDetails _getCepDetails;
 
-  CepNotifier(this._cepRepository) : super(const CepState.initial());
+  CepNotifier(this._getCepDetails) : super(const CepState.initial());
 
   bool get isLoading => state.isLoading;
 
@@ -21,7 +21,7 @@ final class CepNotifier extends StateNotifier<CepState> {
       state: CepStateEnum.loading,
     );
 
-    final cepEither = await _cepRepository(CepBodyModel(cep));
+    final cepEither = await _getCepDetails(CepBody(cep));
 
     switch (cepEither) {
       case Left(value: final l):
