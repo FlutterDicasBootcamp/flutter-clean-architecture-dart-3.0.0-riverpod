@@ -1,9 +1,9 @@
 import 'package:equatable/equatable.dart';
 
-class CepBody extends Equatable {
+class GetCepDetailsByCepBody extends Equatable {
   final String cep;
 
-  const CepBody(this.cep);
+  const GetCepDetailsByCepBody(this.cep);
 
   @override
   List<Object?> get props => [cep];

@@ -4,21 +4,44 @@ import 'package:flutter_dicas_cep_clean_architecture/shared/ui/theme/domain/prov
 import 'package:flutter_dicas_cep_clean_architecture/shared/ui/theme/domain/providers/theme_state.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class CepScreenScaffold extends ConsumerStatefulWidget {
+class CepScreenScaffoldWidget extends ConsumerStatefulWidget {
   final String title;
-  final Widget body;
+  final List<Widget> tabs;
 
-  const CepScreenScaffold({required this.title, required this.body, super.key});
+  const CepScreenScaffoldWidget({
+    required this.title,
+    required this.tabs,
+    super.key,
+  });
 
   @override
-  ConsumerState<CepScreenScaffold> createState() => _CepScreenScaffoldState();
+  ConsumerState<CepScreenScaffoldWidget> createState() =>
+      _CepScreenScaffoldState();
 }
 
-class _CepScreenScaffoldState extends ConsumerState<CepScreenScaffold> {
+class _CepScreenScaffoldState extends ConsumerState<CepScreenScaffoldWidget>
+    with TickerProviderStateMixin {
+  late TabController tabCtrl;
+
   @override
   void initState() {
     ref.read<ThemeNotifier>(themeNotifierProvider.notifier).initThemeState();
+
+    tabCtrl = TabController(length: 2, vsync: this)
+      ..addListener(onTabIndexChange);
     super.initState();
+  }
+
+  void onTabIndexChange() {
+    if (tabCtrl.indexIsChanging) {
+      setState(() {});
+    }
+  }
+
+  @override
+  void dispose() {
+    tabCtrl.removeListener(onTabIndexChange);
+    super.dispose();
   }
 
   @override
@@ -35,9 +58,22 @@ class _CepScreenScaffoldState extends ConsumerState<CepScreenScaffold> {
             onChanged: (_) => themeNotifier.changeTheme(context),
           )
         ],
+        bottom: TabBar(
+          controller: tabCtrl,
+          tabs: const [
+            Tab(
+              icon: Icon(Icons.search),
+              text: 'CEP',
+            ),
+            Tab(
+              icon: Icon(Icons.location_city),
+              text: 'Detalhes do local',
+            ),
+          ],
+        ),
         title: Text(widget.title),
       ),
-      body: widget.body,
+      body: widget.tabs[tabCtrl.index],
     );
   }
 }

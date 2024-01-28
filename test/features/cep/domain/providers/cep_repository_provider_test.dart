@@ -1,5 +1,5 @@
-import 'package:flutter_dicas_cep_clean_architecture/features/cep/data/data_sources/cep_local_data_source.dart';
-import 'package:flutter_dicas_cep_clean_architecture/features/cep/data/data_sources/get_cep_remote_data_source.dart';
+import 'package:flutter_dicas_cep_clean_architecture/features/cep/data/data_sources/local/get_cep_details_by_cep_local_data_source.dart';
+import 'package:flutter_dicas_cep_clean_architecture/features/cep/data/data_sources/remote/get_cep_details_by_cep_remote_data_source.dart';
 import 'package:flutter_dicas_cep_clean_architecture/features/cep/domain/providers/get_cep_details_provider.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -9,16 +9,18 @@ void main() {
   late dynamic getCepRemoteDataSource;
   late dynamic getCepLocalDatSource;
 
-  setUpAll(() {
-    getCepRemoteDataSource = providerContainer.read(cepRemoteDataSource);
-    getCepLocalDatSource = providerContainer.read(cepLocalDataSource);
+  setUp(() {
+    getCepRemoteDataSource =
+        providerContainer.read(getCepDetailsByCepRemoteDataSource);
+    getCepLocalDatSource =
+        providerContainer.read(getCepDetailsByCepLocalDataSource);
   });
 
   test('getCepRemoteDataSource is a GetCepRemoteDatSource', () {
-    expect(getCepRemoteDataSource, isA<GetCepRemoteDataSource>());
+    expect(getCepRemoteDataSource, isA<GetCepDetailsByCepRemoteDataSource>());
   });
 
-  test('getCepLocalDatSource is a CepLocalDataSource', () {
-    expect(getCepLocalDatSource, isA<CepLocalDataSource>());
+  test('getCepLocalDatSource is a GetCepDetailsByCepLocalDataSource', () {
+    expect(getCepLocalDatSource, isA<GetCepDetailsByCepLocalDataSource>());
   });
 }

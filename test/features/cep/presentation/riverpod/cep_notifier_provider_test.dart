@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_dicas_cep_clean_architecture/features/cep/data/data_sources/errors/cep_remote_exception.dart';
-import 'package:flutter_dicas_cep_clean_architecture/features/cep/domain/entities/cep_body.dart';
+import 'package:flutter_dicas_cep_clean_architecture/features/cep/domain/entities/get_cep_details_by_cep_body.dart';
 import 'package:flutter_dicas_cep_clean_architecture/features/cep/domain/use_cases/get_cep_details_by_cep.dart';
+import 'package:flutter_dicas_cep_clean_architecture/features/cep/domain/use_cases/get_cep_details_by_local_details.dart';
 import 'package:flutter_dicas_cep_clean_architecture/features/cep/presentation/riverpod/cep_notifier.dart';
 import 'package:flutter_dicas_cep_clean_architecture/features/cep/presentation/riverpod/cep_state.dart';
 import 'package:flutter_dicas_cep_clean_architecture/shared/data/async/either.dart';
@@ -14,21 +15,28 @@ import '../../../../fixtures/cep_response.dart';
 
 class MockGetCepDetailsByCep extends Mock implements GetCepDetailsByCep {}
 
+class MockGetCepDetailsByLocalDetails extends Mock
+    implements GetCepDetailsByLocalDetails {}
+
 class MockBuildContext extends Mock implements BuildContext {}
 
 void main() {
   late GetCepDetailsByCep getCepDetailsByCepMock;
+  late GetCepDetailsByLocalDetails getCepDetailsByLocalDetailsMock;
   late CepNotifier cepNotifier;
   late BuildContext buildContext;
 
-  setUpAll(() {
-    registerFallbackValue(const CepBody('00000000'));
+  setUp(() {
+    registerFallbackValue(const GetCepDetailsByCepBody('00000000'));
     registerFallbackValue(SnackBarType.success);
   });
 
   setUp(() {
     getCepDetailsByCepMock = MockGetCepDetailsByCep();
-    cepNotifier = CepNotifier(getCepDetailsByCepMock);
+    getCepDetailsByLocalDetailsMock = MockGetCepDetailsByLocalDetails();
+
+    cepNotifier =
+        CepNotifier(getCepDetailsByCepMock, getCepDetailsByLocalDetailsMock);
     buildContext = MockBuildContext();
   });
 
@@ -49,7 +57,7 @@ void main() {
               .thenAnswer((_) async => Right(tCepObject));
         },
         actions: (_) async {
-          await cepNotifier.loadAddress('00000000', buildContext);
+          await cepNotifier.loadAddressByCep('00000000', buildContext);
         },
         expect: () => const [
               CepState(isLoading: true, state: CepStateEnum.loading),
@@ -69,7 +77,7 @@ void main() {
           when(() => buildContext.mounted).thenReturn(true);
         },
         actions: (_) async {
-          await cepNotifier.loadAddress('00000000', buildContext);
+          await cepNotifier.loadAddressByCep('00000000', buildContext);
         },
         expect: () => const [
               CepState(isLoading: true, state: CepStateEnum.loading),

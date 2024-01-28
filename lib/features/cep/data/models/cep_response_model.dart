@@ -25,12 +25,14 @@ final class CepResponseModel extends CepResponse {
   factory CepResponseModel.fromJSON(String json) =>
       CepResponseModel.fromMap(jsonDecode(json));
 
-  String toJSON() => jsonEncode({
+  Map<String, dynamic> toMap() => {
         'cep': cep,
         'logradouro': logradouro,
         'complemento': complemento,
         'bairro': bairro,
         'localidade': localidade,
         'uf': uf
-      });
+      };
+
+  String toJSON() => jsonEncode(toMap());
 }

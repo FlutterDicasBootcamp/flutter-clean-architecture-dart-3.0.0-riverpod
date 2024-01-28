@@ -21,6 +21,9 @@ sealed class CepAppTheme {
     inputDecorationTheme: InputDecorationTheme(
       filled: true,
       fillColor: CepAppColors.lightBgColor,
+      hintStyle: TextStyle(
+        color: Colors.grey.shade500,
+      ),
       border: OutlineInputBorder(
         borderRadius: BorderRadius.circular(12),
       ),

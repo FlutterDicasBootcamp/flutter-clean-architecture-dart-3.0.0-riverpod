@@ -9,9 +9,7 @@ import '../../../../fixtures/cep_response.dart';
 void main() {
   late LocalService sharedPreferencesService;
 
-  setUpAll(() {
-    // TestWidgetsFlutterBinding.ensureInitialized();
-
+  setUp(() {
     SharedPreferences.setMockInitialValues({});
     sharedPreferencesService = SharedPreferencesService();
   });

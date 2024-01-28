@@ -1,6 +1,6 @@
 import 'package:flutter_dicas_cep_clean_architecture/features/cep/data/data_sources/const/get_cep_error_messages.dart';
 import 'package:flutter_dicas_cep_clean_architecture/features/cep/data/data_sources/errors/cep_remote_exception.dart';
-import 'package:flutter_dicas_cep_clean_architecture/features/cep/data/data_sources/get_cep_remote_data_source.dart';
+import 'package:flutter_dicas_cep_clean_architecture/features/cep/data/data_sources/remote/get_cep_details_by_cep_remote_data_source.dart';
 import 'package:flutter_dicas_cep_clean_architecture/features/cep/data/models/cep_response_model.dart';
 import 'package:flutter_dicas_cep_clean_architecture/shared/data/remote/api_service/api_service.dart';
 import 'package:flutter_dicas_cep_clean_architecture/shared/data/remote/api_service/errors/api_exception.dart';
@@ -15,11 +15,11 @@ class MockApiService extends Mock implements ApiService {}
 
 void main() {
   late ApiService apiService;
-  late GetCepRemoteDataSource getCepRemoteDataSource;
+  late GetCepDetailsByCepRemoteDataSource getCepRemoteDataSource;
 
-  setUpAll(() {
+  setUp(() {
     apiService = MockApiService();
-    getCepRemoteDataSource = GetCepRemoteDataSourceImpl(apiService);
+    getCepRemoteDataSource = GetCepDetailsByCepRemoteDataSourceImpl(apiService);
   });
 
   group('get cep remote data source', () {
@@ -33,7 +33,8 @@ void main() {
         ),
       );
 
-      final response = await getCepRemoteDataSource(tCepBodyRight);
+      final response =
+          await getCepRemoteDataSource(tGetCepDetailsByCepBodyRight);
 
       expect(response, isA<Right>());
       expect((((response as Right).value) as CepResponseModel).cep,
@@ -52,7 +53,8 @@ void main() {
       ),
     );
 
-    final response = await getCepRemoteDataSource.call(tCepBodyFail);
+    final response =
+        await getCepRemoteDataSource.call(tGetCepDetailsByCepBodyFail);
 
     expect(response, isA<Left>());
     expect((((response as Left).value) as CepRemoteException).message,

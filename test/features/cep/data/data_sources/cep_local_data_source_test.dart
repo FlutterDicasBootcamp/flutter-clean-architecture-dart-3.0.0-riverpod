@@ -1,4 +1,4 @@
-import 'package:flutter_dicas_cep_clean_architecture/features/cep/data/data_sources/cep_local_data_source.dart';
+import 'package:flutter_dicas_cep_clean_architecture/features/cep/data/data_sources/local/get_cep_details_by_cep_local_data_source.dart';
 import 'package:flutter_dicas_cep_clean_architecture/features/cep/data/data_sources/errors/cep_remote_exception.dart';
 import 'package:flutter_dicas_cep_clean_architecture/shared/data/async/either.dart';
 import 'package:flutter_dicas_cep_clean_architecture/shared/data/local/local_service/errors/local_exception.dart';
@@ -12,11 +12,12 @@ class MockLocalService extends Mock implements LocalService {}
 
 void main() {
   late LocalService mockLocalService;
-  late CepLocalDataSource cepLocalDataSource;
+  late GetCepDetailsByCepLocalDataSource cepLocalDataSource;
 
-  setUpAll(() {
+  setUp(() {
     mockLocalService = MockLocalService();
-    cepLocalDataSource = CepLocalDataSourceImpl(mockLocalService);
+    cepLocalDataSource =
+        GetCepDetailsByCepLocalDataSourceImpl(mockLocalService);
   });
 
   group('set cep local datasource', () {

@@ -16,6 +16,13 @@ final class CepInternetConnectionException extends CepException {
       : super(message: 'Sem conexāo. Tente novamente mais tarde.');
 }
 
+final class LocalDetailsInternetConnectionException extends CepException {
+  final List<CepResponseModel>? cep;
+
+  LocalDetailsInternetConnectionException({this.cep})
+      : super(message: 'Sem conexāo. Tente novamente mais tarde.');
+}
+
 final class CepLocalException extends CepException {
   CepLocalException({super.message});
 }

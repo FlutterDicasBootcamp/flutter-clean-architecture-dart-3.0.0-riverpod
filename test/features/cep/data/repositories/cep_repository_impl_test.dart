@@ -1,6 +1,8 @@
-import 'package:flutter_dicas_cep_clean_architecture/features/cep/data/data_sources/cep_local_data_source.dart';
 import 'package:flutter_dicas_cep_clean_architecture/features/cep/data/data_sources/errors/cep_remote_exception.dart';
-import 'package:flutter_dicas_cep_clean_architecture/features/cep/data/data_sources/get_cep_remote_data_source.dart';
+import 'package:flutter_dicas_cep_clean_architecture/features/cep/data/data_sources/local/get_cep_details_by_cep_local_data_source.dart';
+import 'package:flutter_dicas_cep_clean_architecture/features/cep/data/data_sources/local/get_cep_details_by_local_details_local_data_source.dart';
+import 'package:flutter_dicas_cep_clean_architecture/features/cep/data/data_sources/remote/get_cep_details_by_cep_remote_data_source.dart';
+import 'package:flutter_dicas_cep_clean_architecture/features/cep/data/data_sources/remote/get_cep_details_by_locel_details_remote_data_source.dart';
 import 'package:flutter_dicas_cep_clean_architecture/features/cep/data/repositories/cep_repository_impl.dart';
 import 'package:flutter_dicas_cep_clean_architecture/features/cep/data/models/cep_response_model.dart';
 import 'package:flutter_dicas_cep_clean_architecture/features/cep/domain/repositories/cep_repository.dart';
@@ -11,32 +13,55 @@ import 'package:mocktail/mocktail.dart';
 
 import '../../../../fixtures/cep_response.dart';
 
-class MockCepLocal extends Mock implements CepLocalDataSource {}
+class MockGetCepDetailsByCepLocalDataSource extends Mock
+    implements GetCepDetailsByCepLocalDataSource {}
 
-class MockCepRemote extends Mock implements GetCepRemoteDataSource {}
+class MockGetCepDetailsByCepRemoteDataSource extends Mock
+    implements GetCepDetailsByCepRemoteDataSource {}
+
+class MockGetCepDetailsByLocalDetailsLocalDataSource extends Mock
+    implements GetCepDetailsByLocalDetailsLocalDataSource {}
+
+class MockGetCepDetailsByLocalDetailsRemoteDataSource extends Mock
+    implements GetCepDetailsByLocalDetailsRemoteDataSource {}
 
 void main() {
   late CepRepository cepRepository;
-  late MockCepLocal mockCepLocal;
-  late MockCepRemote mockCepRemote;
+  late MockGetCepDetailsByCepLocalDataSource mockGetCepDetailsByCepLocal;
+  late MockGetCepDetailsByCepRemoteDataSource mockGetCepDetailsByCepRemote;
+  late MockGetCepDetailsByLocalDetailsLocalDataSource
+      mockGetCepDetailsByLocalDetailsLocal;
+  late MockGetCepDetailsByLocalDetailsRemoteDataSource
+      mockGetCepDetailsByLocalDetailsRemote;
 
-  setUpAll(() {
-    mockCepLocal = MockCepLocal();
-    mockCepRemote = MockCepRemote();
+  setUp(() {
+    mockGetCepDetailsByCepLocal = MockGetCepDetailsByCepLocalDataSource();
+    mockGetCepDetailsByCepRemote = MockGetCepDetailsByCepRemoteDataSource();
+    mockGetCepDetailsByLocalDetailsLocal =
+        MockGetCepDetailsByLocalDetailsLocalDataSource();
+    mockGetCepDetailsByLocalDetailsRemote =
+        MockGetCepDetailsByLocalDetailsRemoteDataSource();
 
-    cepRepository = CepRepositoryImpl(mockCepLocal, mockCepRemote);
+    cepRepository = CepRepositoryImpl(
+      mockGetCepDetailsByCepLocal,
+      mockGetCepDetailsByCepRemote,
+      mockGetCepDetailsByLocalDetailsRemote,
+      mockGetCepDetailsByLocalDetailsLocal,
+    );
 
-    registerFallbackValue(tCepBodyRight);
+    registerFallbackValue(tGetCepDetailsByCepBodyRight);
     registerFallbackValue(tCepObject);
   });
 
   group('get cep', () {
     test('success', () async {
-      when(() => mockCepRemote.call(any()))
+      when(() => mockGetCepDetailsByCepRemote.call(any()))
           .thenAnswer((_) async => Right(tCepObject));
-      when(() => mockCepLocal.set(any())).thenAnswer((_) async => Right(null));
+      when(() => mockGetCepDetailsByCepLocal.set(any()))
+          .thenAnswer((_) async => Right(null));
 
-      final cepEither = await cepRepository.getCepDetailsByCep(tCepBodyRight);
+      final cepEither =
+          await cepRepository.getCepDetailsByCep(tGetCepDetailsByCepBodyRight);
 
       expect(cepEither, isA<Right>());
 
@@ -46,10 +71,13 @@ void main() {
     });
 
     test('no connection returns cached cep', () async {
-      when(() => mockCepRemote.call(any())).thenThrow(NoInternetException());
-      when(() => mockCepLocal.get()).thenAnswer((_) async => Right(tCepObject));
+      when(() => mockGetCepDetailsByCepRemote.call(any()))
+          .thenThrow(NoInternetException());
+      when(() => mockGetCepDetailsByCepLocal.get())
+          .thenAnswer((_) async => Right(tCepObject));
 
-      final cepEither = await cepRepository.getCepDetailsByCep(tCepBodyRight);
+      final cepEither =
+          await cepRepository.getCepDetailsByCep(tGetCepDetailsByCepBodyRight);
 
       expect(cepEither, isA<Left>());
       final bairro =
@@ -62,11 +90,13 @@ void main() {
     test('remote and local fails', () async {
       const kErrorMessage = 'Error loading cep';
 
-      when(() => mockCepRemote.call(any())).thenThrow(NoInternetException());
-      when(() => mockCepLocal.get()).thenAnswer(
+      when(() => mockGetCepDetailsByCepRemote.call(any()))
+          .thenThrow(NoInternetException());
+      when(() => mockGetCepDetailsByCepLocal.get()).thenAnswer(
           (_) async => Left(CepLocalException(message: kErrorMessage)));
 
-      final cepEither = await cepRepository.getCepDetailsByCep(tCepBodyRight);
+      final cepEither =
+          await cepRepository.getCepDetailsByCep(tGetCepDetailsByCepBodyRight);
 
       expect(cepEither, isA<Left>());
       final errorMessage =

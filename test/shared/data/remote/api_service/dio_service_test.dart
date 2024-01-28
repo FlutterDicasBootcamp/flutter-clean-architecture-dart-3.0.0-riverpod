@@ -10,7 +10,7 @@ void main() {
   late Dio mockApiService;
   late DioService dioService;
 
-  setUpAll(() {
+  setUp(() {
     mockApiService = MockDio();
     dioService = DioService(mockApiService);
   });

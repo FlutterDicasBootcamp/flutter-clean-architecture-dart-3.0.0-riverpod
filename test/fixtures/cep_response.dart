@@ -1,5 +1,5 @@
 import 'package:flutter_dicas_cep_clean_architecture/features/cep/data/models/cep_response_model.dart';
-import 'package:flutter_dicas_cep_clean_architecture/features/cep/domain/entities/cep_body.dart';
+import 'package:flutter_dicas_cep_clean_architecture/features/cep/domain/entities/get_cep_details_by_cep_body.dart';
 
 const Map<String, dynamic> tCepApiResponse = {
   "cep": "01001-000",
@@ -22,6 +22,6 @@ const tCepObject = CepResponseModel(
   uf: "SP",
 );
 
-const tCepBodyRight = CepBody('01001-000');
+const tGetCepDetailsByCepBodyRight = GetCepDetailsByCepBody('01001-000');
 
-const tCepBodyFail = CepBody('cep');
+const tGetCepDetailsByCepBodyFail = GetCepDetailsByCepBody('cep');
