@@ -1,7 +1,7 @@
 import 'package:flutter_dicas_cep_clean_architecture/features/cep/data/models/cep_response_model.dart';
 import 'package:flutter_test/flutter_test.dart';
 
-import '../../../../fixtures/cep_response.dart';
+import '../../../../fixtures/cep_fixtures.dart';
 
 void main() {
   test('should convert CepResponseModel to json', () {

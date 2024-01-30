@@ -17,7 +17,6 @@ class CepButtonWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return ElevatedButton(
       focusNode: focusNode,
-      key: key,
       onPressed: onPressed,
       child: Text(
         'Procurar',

@@ -9,7 +9,7 @@ import 'package:flutter_dicas_cep_clean_architecture/shared/domain/models/remote
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
 
-import '../../../../fixtures/cep_response.dart';
+import '../../../../fixtures/cep_fixtures.dart';
 
 class MockApiService extends Mock implements ApiService {}
 

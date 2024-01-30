@@ -6,7 +6,7 @@ import 'package:flutter_dicas_cep_clean_architecture/shared/data/local/local_ser
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
 
-import '../../../../fixtures/cep_response.dart';
+import '../../../../fixtures/cep_fixtures.dart';
 
 class MockLocalService extends Mock implements LocalService {}
 

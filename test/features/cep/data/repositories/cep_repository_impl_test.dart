@@ -11,7 +11,7 @@ import 'package:flutter_dicas_cep_clean_architecture/shared/errors/no_internet_e
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
 
-import '../../../../fixtures/cep_response.dart';
+import '../../../../fixtures/cep_fixtures.dart';
 
 class MockGetCepDetailsByCepLocalDataSource extends Mock
     implements GetCepDetailsByCepLocalDataSource {}
@@ -80,10 +80,12 @@ void main() {
           await cepRepository.getCepDetailsByCep(tGetCepDetailsByCepBodyRight);
 
       expect(cepEither, isA<Left>());
+
       final bairro =
           ((cepEither as Left).value as CepInternetConnectionException)
               .cep!
               .bairro;
+
       expect(bairro, equals(tCepObject.bairro));
     });
 

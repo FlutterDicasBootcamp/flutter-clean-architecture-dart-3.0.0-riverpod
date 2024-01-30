@@ -18,6 +18,10 @@ sealed class CepAppTheme {
       surface: CepAppColors.lightBgColor,
       onSurface: CepAppColors.lightBgColor,
     ),
+    tabBarTheme: TabBarTheme(
+      unselectedLabelColor: Colors.black.withOpacity(.3),
+      labelColor: CepAppColors.secondaryColor,
+    ),
     inputDecorationTheme: InputDecorationTheme(
       filled: true,
       fillColor: CepAppColors.lightBgColor,
@@ -69,6 +73,10 @@ sealed class CepAppTheme {
   );
 
   static final ThemeData dark = light.copyWith(
+    tabBarTheme: TabBarTheme(
+      unselectedLabelColor: Colors.grey,
+      labelColor: CepAppColors.primaryColor,
+    ),
     appBarTheme: light.appBarTheme.copyWith(
       backgroundColor: Colors.black87,
       titleTextStyle: light.appBarTheme.titleTextStyle!.copyWith(

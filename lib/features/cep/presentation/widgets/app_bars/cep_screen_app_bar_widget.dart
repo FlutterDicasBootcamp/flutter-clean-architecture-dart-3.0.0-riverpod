@@ -4,6 +4,8 @@ import 'package:flutter_dicas_cep_clean_architecture/shared/ui/theme/domain/prov
 import 'package:flutter_dicas_cep_clean_architecture/shared/ui/theme/domain/providers/theme_state.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+const Key localDetailsKey = Key('localDetails');
+
 class CepScreenScaffoldWidget extends ConsumerStatefulWidget {
   final String title;
   final List<Widget> tabs;
@@ -66,6 +68,7 @@ class _CepScreenScaffoldState extends ConsumerState<CepScreenScaffoldWidget>
               text: 'CEP',
             ),
             Tab(
+              key: localDetailsKey,
               icon: Icon(Icons.location_city),
               text: 'Detalhes do local',
             ),

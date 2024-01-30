@@ -11,8 +11,8 @@ import 'package:flutter_dicas_cep_clean_architecture/features/cep/presentation/w
 import 'package:flutter_dicas_cep_clean_architecture/shared/extensions/theme_extension.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-const searchZipCodeKey = Key('search-zip-code-key');
-const zipCodeInput = Key('zip-code-input');
+const searchByZipCodeButtonKey = Key('searchByZipCodeButtonKey');
+const zipCodeInput = Key('zipCodeInput');
 
 class SearchByCepTabWidget extends ConsumerStatefulWidget {
   const SearchByCepTabWidget({super.key});
@@ -72,6 +72,7 @@ class _SearchByCepTabWidgetState extends ConsumerState<SearchByCepTabWidget>
               },
               const SizedBox(height: 16),
               CepTextFieldWidget(
+                key: zipCodeInput,
                 textEC: cepTEC,
                 placeholder: 'CEP',
                 validator: (String? cep) {
@@ -83,7 +84,7 @@ class _SearchByCepTabWidgetState extends ConsumerState<SearchByCepTabWidget>
               ),
               const SizedBox(height: 32),
               CepButtonWidget(
-                key: searchZipCodeKey,
+                key: searchByZipCodeButtonKey,
                 onPressed: () {
                   if (state.state == CepStateEnum.loading) {
                     return;
