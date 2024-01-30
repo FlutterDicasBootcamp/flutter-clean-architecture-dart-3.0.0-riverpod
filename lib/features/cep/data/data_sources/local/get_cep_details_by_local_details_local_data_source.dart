@@ -26,7 +26,7 @@ class GetCepDetailsByLocalDetailsLocalDataSourceImpl
     return switch (localCep) {
       Left(value: final l) => Left(CepLocalException(message: l.message)),
       Right(value: final r) => Right(r != null
-          ? (CepResponseModel.fromJSON(r) as List)
+          ? (jsonDecode(r) as List)
               .map((localDetails) => CepResponseModel.fromMap(localDetails))
               .toList()
           : null),

@@ -31,7 +31,7 @@ final class SearchByLocalDetailsNotifier
     switch (cepEither) {
       case Left(value: final l):
         {
-          final noInternetError = l is CepInternetConnectionException;
+          final noInternetError = l is LocalDetailsInternetConnectionException;
           if (noInternetError && context.mounted) {
             context.showSnackBar(SnackBarType.error, l.message);
           }
@@ -39,7 +39,7 @@ final class SearchByLocalDetailsNotifier
             isLoading: false,
             state: noInternetError ? CepStateEnum.loaded : CepStateEnum.error,
             errorMessage: noInternetError ? null : l.message,
-            cep: noInternetError ? l.cep : null,
+            localDetailsList: noInternetError ? l.cep : null,
           );
         }
       case Right(value: final r):
