@@ -55,26 +55,5 @@ void main() {
 
       expect(errorStreetValidationText, findsOneWidget);
     });
-
-    // testWidgets('should get invalid zip code', (tester) async {
-    //   await tester.pumpWidget(const CepApp());
-
-    //   final input = find.byKey(zipCodeInput);
-
-    //   await tester.enterText(input, '000');
-
-    //   final button = find.byKey(searchZipCodeKey);
-
-    //   await tester.tap(button);
-
-    //   await tester.pumpAndSettle();
-
-    //   final errorValidationText =
-    //       find.text(ValidationCepMessagesConst.notEmpty('CEP'));
-    //   final errorInvalidZipCode = find.text(GetCepErrorMessages.invalidZipCode);
-
-    //   expect(errorValidationText, findsNothing);
-    //   expect(errorInvalidZipCode, findsOneWidget);
-    // });
   });
 }

@@ -28,8 +28,8 @@ class GetCepDetailsByLocalDetailsRemoteDataSourceImpl
       case Left(value: final l):
         return switch (l.errorStatus) {
           ErrorStatus.noConnection => throw NoInternetException(),
-          ErrorStatus.badRequest => Left(
-              CepRemoteException(message: GetCepErrorMessages.invalidZipCode)),
+          ErrorStatus.badRequest => Left(CepRemoteException(
+              message: GetCepErrorMessages.invalidLocalDetails)),
           _ => Left(CepRemoteException(message: l.message)),
         };
       case Right(value: final r):

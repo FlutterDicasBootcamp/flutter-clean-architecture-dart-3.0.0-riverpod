@@ -75,12 +75,12 @@ class _SearchByCepTabWidgetState extends ConsumerState<SearchByCepTabWidget>
               label: 'Procurar',
               focusNode: cepInputFN,
             ),
+            const SizedBox(height: 32),
             switch (state.state) {
               CepStateEnum.error => Text(state.errorMessage!),
               CepStateEnum.loading => const CircularProgressIndicator(),
               CepStateEnum.loaded => Column(
                   children: [
-                    const SizedBox(height: 32),
                     Text(
                       'Resultado:',
                       style: context.getTextTheme.titleLarge,
