@@ -52,46 +52,15 @@ class _SearchByLocalDetailsTabWidgetState
       padding: const EdgeInsets.symmetric(horizontal: 16.0),
       child: Form(
         key: formKey,
-        child: Center(
+        child: SingleChildScrollView(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              switch (state.state) {
-                CepStateEnum.error => Text(state.errorMessage!),
-                CepStateEnum.loading => const CircularProgressIndicator(),
-                CepStateEnum.loaded => Expanded(
-                    child: SingleChildScrollView(
-                      child: Column(
-                        children: state.localDetailsList
-                                ?.map((localDetailsItem) => Padding(
-                                      padding: const EdgeInsets.symmetric(
-                                          vertical: 12.0),
-                                      child: Column(
-                                        children: [
-                                          Text(localDetailsItem.cep),
-                                          const SizedBox(height: 8),
-                                          Text(localDetailsItem.localidade),
-                                          const SizedBox(height: 8),
-                                          Text(localDetailsItem.bairro),
-                                          const SizedBox(height: 8),
-                                          Text(localDetailsItem.uf),
-                                          const SizedBox(height: 8),
-                                        ],
-                                      ),
-                                    ))
-                                .toList() ??
-                            [],
-                      ),
-                    ),
-                  ),
-                CepStateEnum.initial => Text(
-                    'Insira um Local:',
-                    style: context.getTextTheme.titleMedium,
-                  ),
-                CepStateEnum.noResult => const NoResultWidget(
-                    text: 'Sem resultados, tente outro local',
-                  ),
-              },
+              const SizedBox(height: 16),
+              Text(
+                'Insira um Local:',
+                style: context.getTextTheme.titleMedium,
+              ),
               const SizedBox(height: 16),
               CepTextFieldWidget(
                 textEC: stateTEC,
@@ -140,6 +109,46 @@ class _SearchByLocalDetailsTabWidgetState
                 label: 'Procurar',
                 focusNode: cepInputFN,
               ),
+              const SizedBox(height: 16),
+              switch (state.state) {
+                CepStateEnum.error => Text(state.errorMessage!),
+                CepStateEnum.loading => const CircularProgressIndicator(),
+                CepStateEnum.loaded => Column(
+                    children: [
+                      const SizedBox(height: 32),
+                      Text(
+                        'Resultados:',
+                        style: context.getTextTheme.titleLarge,
+                      ),
+                      const SizedBox(height: 32),
+                      Column(
+                        children: state.localDetailsList
+                                ?.map((localDetailsItem) => Padding(
+                                      padding: const EdgeInsets.symmetric(
+                                          vertical: 12.0),
+                                      child: Column(
+                                        children: [
+                                          Text(localDetailsItem.cep),
+                                          const SizedBox(height: 8),
+                                          Text(localDetailsItem.localidade),
+                                          const SizedBox(height: 8),
+                                          Text(localDetailsItem.bairro),
+                                          const SizedBox(height: 8),
+                                          Text(localDetailsItem.uf),
+                                          const SizedBox(height: 8),
+                                        ],
+                                      ),
+                                    ))
+                                .toList() ??
+                            [],
+                      ),
+                    ],
+                  ),
+                CepStateEnum.initial => const SizedBox.shrink(),
+                CepStateEnum.noResult => const NoResultWidget(
+                    text: 'Sem resultados, tente outro local',
+                  ),
+              },
               const SizedBox(height: 16),
             ],
           ),

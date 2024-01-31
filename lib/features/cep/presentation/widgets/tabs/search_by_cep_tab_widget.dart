@@ -43,60 +43,69 @@ class _SearchByCepTabWidgetState extends ConsumerState<SearchByCepTabWidget>
       padding: const EdgeInsets.symmetric(horizontal: 16.0),
       child: Form(
         key: formKey,
-        child: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              switch (state.state) {
-                CepStateEnum.error => Text(state.errorMessage!),
-                CepStateEnum.loading => const CircularProgressIndicator(),
-                CepStateEnum.loaded => Column(
-                    children: [
-                      Text(state.cep!.cep),
-                      const SizedBox(height: 8),
-                      Text(state.cep!.localidade),
-                      const SizedBox(height: 8),
-                      Text(state.cep!.bairro),
-                      const SizedBox(height: 8),
-                      Text(state.cep!.uf),
-                      const SizedBox(height: 8),
-                    ],
-                  ),
-                CepStateEnum.initial => Text(
-                    'Insira um CEP:',
-                    style: context.getTextTheme.titleMedium,
-                  ),
-                CepStateEnum.noResult => const NoResultWidget(
-                    text: 'Sem resultados, tente outro CEP',
-                  ),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text(
+              'Insira um CEP:',
+              style: context.getTextTheme.titleMedium,
+            ),
+            const SizedBox(height: 16),
+            CepTextFieldWidget(
+              key: zipCodeInput,
+              textEC: cepTEC,
+              placeholder: 'CEP',
+              validator: (String? cep) {
+                if (cep == null || cep.isEmpty) {
+                  return ValidationCepMessagesConst.notEmpty('CEP');
+                }
+                return null;
               },
-              const SizedBox(height: 16),
-              CepTextFieldWidget(
-                key: zipCodeInput,
-                textEC: cepTEC,
-                placeholder: 'CEP',
-                validator: (String? cep) {
-                  if (cep == null || cep.isEmpty) {
-                    return ValidationCepMessagesConst.notEmpty('CEP');
-                  }
-                  return null;
-                },
-              ),
-              const SizedBox(height: 32),
-              CepButtonWidget(
-                key: searchByZipCodeButtonKey,
-                onPressed: () {
-                  if (state.state == CepStateEnum.loading) {
-                    return;
-                  }
-                  FocusScope.of(context).requestFocus(FocusNode());
-                  onSearchCep(notifier);
-                },
-                label: 'Procurar',
-                focusNode: cepInputFN,
-              ),
-            ],
-          ),
+            ),
+            const SizedBox(height: 32),
+            CepButtonWidget(
+              key: searchByZipCodeButtonKey,
+              onPressed: () {
+                if (state.state == CepStateEnum.loading) {
+                  return;
+                }
+                FocusScope.of(context).requestFocus(FocusNode());
+                onSearchCep(notifier);
+              },
+              label: 'Procurar',
+              focusNode: cepInputFN,
+            ),
+            switch (state.state) {
+              CepStateEnum.error => Text(state.errorMessage!),
+              CepStateEnum.loading => const CircularProgressIndicator(),
+              CepStateEnum.loaded => Column(
+                  children: [
+                    const SizedBox(height: 32),
+                    Text(
+                      'Resultado:',
+                      style: context.getTextTheme.titleLarge,
+                    ),
+                    const SizedBox(height: 32),
+                    Column(
+                      children: [
+                        Text(state.cep!.cep),
+                        const SizedBox(height: 8),
+                        Text(state.cep!.localidade),
+                        const SizedBox(height: 8),
+                        Text(state.cep!.bairro),
+                        const SizedBox(height: 8),
+                        Text(state.cep!.uf),
+                        const SizedBox(height: 8),
+                      ],
+                    ),
+                  ],
+                ),
+              CepStateEnum.initial => const SizedBox.shrink(),
+              CepStateEnum.noResult => const NoResultWidget(
+                  text: 'Sem resultados, tente outro CEP',
+                ),
+            },
+          ],
         ),
       ),
     );
